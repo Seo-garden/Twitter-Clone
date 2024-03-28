@@ -6,11 +6,14 @@
 //
 import Foundation
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import FirebaseDatabase
 
 class RegistrationController : UIViewController {
     //MARK: - Properties
-    
     private let imagePicker = UIImagePickerController()
+    private var profileImage : UIImage?     //사진이 있을수도 있고, 없을수도 있기 때문에 옵셔널 선언
     
     private let plusPhotoButton : UIButton = {
         let button = UIButton(type: .system)
@@ -21,7 +24,7 @@ class RegistrationController : UIViewController {
     }()
     
     private lazy var emailContainerView : UIView = {
-        let image = #imageLiteral(resourceName: "ic_mail_outline_white_2x-1")
+        let image = #imageLiteral(resourceName: "ic_mail_outline_white_2x-1")       //#imageLiteral()
         let view = Utilities().inputContainerView(withImage: image, textField: emailTextField)
         return view
     }()
@@ -51,12 +54,13 @@ class RegistrationController : UIViewController {
     
     private lazy var passwordTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Password")
+        tf.isSecureTextEntry = true     //비밀번호 입력이 안보인다.
         return tf
     }()
     
     private lazy var fullnameTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Full name")
-        tf.isSecureTextEntry = true     //비밀번호 입력이 안보인다.
+        
         return tf
     }()
     
@@ -95,7 +99,39 @@ class RegistrationController : UIViewController {
     }
     
     @objc func handleRegistration() {
-        print("회원 가입..")
+        guard let profileImage = profileImage else {
+            print("DEBUG : 프로필 사진을 등록하세요")
+            return
+        }
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullnameTextField.text else { return }
+        guard let username = usernameTextField.text else { return }
+        
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        let filename = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        storageRef.putData(imageData, metadata:nil) { meta, error in        //프로필사진 데이터 삽입
+            storageRef.downloadURL { url, error in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("debug : 에러 \(error.localizedDescription)")
+                        return      //return 을 넣지 않으면 항목이 실행되고 앱이 중단될 수 있다.
+                    }
+                    //firebase database 등록
+                    guard let uid = result?.user.uid else { return }
+                    
+                    let values = ["email" : email,
+                                  "username" : username,
+                                  "fullname": fullname,
+                                  "profileImageUrl": profileImageUrl]
+                    REF_USERS.child(uid).updateChildValues(values) { error, ref in
+                        print("dubug : 유저의 정보를 성공적으로 업데이트 함.")
+                    }
+                }
+            }
+        }
     }
     
     @objc func handleAddProfilePhoto() {
@@ -127,7 +163,7 @@ class RegistrationController : UIViewController {
         
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                                     right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
+                                        right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
     }
 }
 
@@ -136,6 +172,7 @@ class RegistrationController : UIViewController {
 extension RegistrationController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {        //사진이나 동영상을 선택한 미디어 항복에 엑세스할 수 있음
         guard let profileImage = info[.editedImage] as? UIImage else { return }
+        self.profileImage = profileImage
         
         plusPhotoButton.layer.cornerRadius = 128 / 2
         plusPhotoButton.layer.masksToBounds = true
