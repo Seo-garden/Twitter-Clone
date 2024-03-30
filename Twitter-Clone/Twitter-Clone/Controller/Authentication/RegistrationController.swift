@@ -19,7 +19,7 @@ class RegistrationController : UIViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector(handleAddProfilePhoto), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleAddProfilePhoto), for: .touchUpInside)       //addTarget() -> 사용자가 직접 컨트롤할 수 있는 객체에 접근하여 특정 이벤트가 발생할 때 마다, 내가 작성한 메서드를 동작할 수 있도록 만들 수 있는 메서드
         return button
     }()
     
@@ -30,7 +30,7 @@ class RegistrationController : UIViewController {
     }()
     
     private lazy var passwordContainerView : UIView = {
-        let image = #imageLiteral(resourceName: "ic_mail_outline_white_2x-1")
+        let image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
         let view = Utilities().inputContainerView(withImage: image, textField: passwordTextField)
         return view
     }()
@@ -71,7 +71,7 @@ class RegistrationController : UIViewController {
     
     private let alreadyHaveAccountButton : UIButton = {
         let button = Utilities().attributeButton("Already have an account? ", "Sign Up")
-        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)     //addTarget() -> 사용자가 직접 컨트롤할 수 있는 객체에 접근하여 특정 이벤트가 발생할 때 마다, 내가 작성한 메서드를 동작할 수 있도록 만들 수 있는 메서드
         return button
     }()
     
@@ -83,7 +83,7 @@ class RegistrationController : UIViewController {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.layer.cornerRadius = 5       //버튼 4각의 둥근 모양의 정도
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)     //폰트를 굵게
-        button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)     //for: 동작 액션
+        button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)     //addTarget() -> 사용자가 직접 컨트롤할 수 있는 객체에 접근하여 특정 이벤트가 발생할 때 마다, 내가 작성한 메서드를 동작할 수 있도록 만들 수 있는 메서드 for: 동작 액션
         return button
     }()
     
@@ -93,6 +93,7 @@ class RegistrationController : UIViewController {
         super.viewDidLoad()
         configureUI()
     }
+    
     //MARK: - Selector
     @objc func handleShowLogin() {
         navigationController?.popViewController(animated: true)
@@ -108,35 +109,17 @@ class RegistrationController : UIViewController {
         guard let fullname = fullnameTextField.text else { return }
         guard let username = usernameTextField.text else { return }
         
-        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
-        let filename = NSUUID().uuidString
-        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
-        storageRef.putData(imageData, metadata:nil) { meta, error in        //프로필사진 데이터 삽입
-            storageRef.downloadURL { url, error in
-                guard let profileImageUrl = url?.absoluteString else { return }
-                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                    if let error = error {
-                        print("debug : 에러 \(error.localizedDescription)")
-                        return      //return 을 넣지 않으면 항목이 실행되고 앱이 중단될 수 있다.
-                    }
-                    //firebase database 등록
-                    guard let uid = result?.user.uid else { return }
-                    
-                    let values = ["email" : email,
-                                  "username" : username,
-                                  "fullname": fullname,
-                                  "profileImageUrl": profileImageUrl]
-                    REF_USERS.child(uid).updateChildValues(values) { error, ref in
-                        print("dubug : 유저의 정보를 성공적으로 업데이트 함.")
-                    }
-                }
-            }
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        //성공했을 때 출력
+        AuthService.shared.registerUser(credentials: credentials) { error, ref in
+            print("debug: 회원가입이 성공적으로 완료했습니다.")
+            print("debug: Handle update user interface here")
         }
+        
     }
     
     @objc func handleAddProfilePhoto() {
         present(imagePicker, animated: true, completion: nil)
-        
     }
     
     //MARK: - Helpers

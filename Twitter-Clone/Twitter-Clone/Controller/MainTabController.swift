@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Foundation
 
 class MainTabController: UITabBarController {
     // MARK: - Properties
@@ -21,11 +23,36 @@ class MainTabController: UITabBarController {
     
     // MARK: - LifeCycle
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
-        configureUI()
+        
+        //logUserOut()
+        view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
+        authenticateUserAndConfigureUI()
+    }
+    
+    //MARK: - API
+    
+    func authenticateUserAndConfigureUI(){
+        if Auth.auth().currentUser == nil {     //로그인이 되지 않은 경우.
+            DispatchQueue.main.async {      //로드시에는 메인 쓰레드에서 수행되어야 한다. 이렇게 하지 않으면 작동하지 않는다.
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen        //기입하기 전에 그냥 내려서 화면을 볼 수 있었는데, 이걸 사용함으로써, 로그인창을 내릴 수 없게 되었다.
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else {
+            configureViewController()
+            configureUI()
+        }
+    }
+    
+    func logUserOut() {
+        do {
+            try Auth.auth().signOut()
+            print("debug: 로그아웃")
+        } catch let error {
+            print("debug: 로그아웃 실패 \(error)")
+        }
     }
     
     //MARK: - Selectors
@@ -51,8 +78,6 @@ class MainTabController: UITabBarController {
     }
     
     func configureViewController() {        //templateNavigationController() 는
-        
-        
         
         let feed = FeedController()
         let nav1 = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)

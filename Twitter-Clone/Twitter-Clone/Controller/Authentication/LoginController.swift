@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class LoginController : UIViewController {
     //MARK: - Properties
@@ -27,7 +28,7 @@ class LoginController : UIViewController {
     
     private lazy var passwordContainerView : UIView = {
         let image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
-        let view = Utilities().inputContainerView(withImage: image, textField: passwordsTextField)
+        let view = Utilities().inputContainerView(withImage: image, textField: passwordTextField)
         return view
     }()
     
@@ -36,7 +37,7 @@ class LoginController : UIViewController {
         return tf
     }()
     
-    private lazy var passwordsTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Password")
         tf.isSecureTextEntry = true     //비밀번호 입력이 안보인다.
         return tf
@@ -69,7 +70,16 @@ class LoginController : UIViewController {
     //MARK: - Selector
     
     @objc func handleLogin() {
-        print("로그인")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("debug: 로그인 에러 \(error.localizedDescription)")
+                return
+            }
+            print("debug: 로그인 성공")
+        }
     }
     
     @objc func handleLoginSignUp() {
