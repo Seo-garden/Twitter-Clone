@@ -10,6 +10,8 @@
 		3EEB97D32E4F02ED90293D6F /* Pods_Twitter_Clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79DD53F0F43D2FF5B880B5B4 /* Pods_Twitter_Clone.framework */; };
 		62011FDF2BB15D8B00EA9CC9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62011FDE2BB15D8B00EA9CC9 /* Utilities.swift */; };
 		620E02D82BB2DE83007FCDFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620E02D72BB2DE83007FCDFD /* GoogleService-Info.plist */; };
+		620E8CEF2BBFCE850053166A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E8CEE2BBFCE850053166A /* UserService.swift */; };
+		620E8CF12BBFD9610053166A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E8CF02BBFD9610053166A /* User.swift */; };
 		62994AEE2BB5478200B30B3E /* Constrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62994AED2BB5478200B30B3E /* Constrants.swift */; };
 		62B7C1B12BB8072800169AAC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B7C1B02BB8072800169AAC /* AuthService.swift */; };
 		62BC1B502BA9698300A233CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BC1B4F2BA9698300A233CD /* AppDelegate.swift */; };
@@ -31,6 +33,8 @@
 		4DB049995FD3FA6D144484B2 /* Pods-Twitter-Clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter-Clone.release.xcconfig"; path = "Target Support Files/Pods-Twitter-Clone/Pods-Twitter-Clone.release.xcconfig"; sourceTree = "<group>"; };
 		62011FDE2BB15D8B00EA9CC9 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		620E02D72BB2DE83007FCDFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		620E8CEE2BBFCE850053166A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = "Twitter-Clone/UserService.swift"; sourceTree = SOURCE_ROOT; };
+		620E8CF02BBFD9610053166A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = "Twitter-Clone/User.swift"; sourceTree = SOURCE_ROOT; };
 		62994AED2BB5478200B30B3E /* Constrants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constrants.swift; sourceTree = "<group>"; };
 		62B7C1B02BB8072800169AAC /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = "Twitter-Clone/AuthService.swift"; sourceTree = SOURCE_ROOT; };
 		62BC1B4C2BA9698300A233CD /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				62B7C1B02BB8072800169AAC /* AuthService.swift */,
+				620E8CEE2BBFCE850053166A /* UserService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 		62BC1B682BA969FA00A233CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				620E8CF02BBFD9610053166A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620E8CEF2BBFCE850053166A /* UserService.swift in Sources */,
 				62BC1B702BA96E4A00A233CD /* NotificationsController.swift in Sources */,
 				62BC1B502BA9698300A233CD /* AppDelegate.swift in Sources */,
 				62011FDF2BB15D8B00EA9CC9 /* Utilities.swift in Sources */,
@@ -303,6 +310,7 @@
 				62BC1B522BA9698300A233CD /* SceneDelegate.swift in Sources */,
 				62BE9D9C2BAD913D006BF900 /* LoginController.swift in Sources */,
 				62B7C1B12BB8072800169AAC /* AuthService.swift in Sources */,
+				620E8CF12BBFD9610053166A /* User.swift in Sources */,
 				62994AEE2BB5478200B30B3E /* Constrants.swift in Sources */,
 				62BC1B6A2BA96B7100A233CD /* MainTabController.swift in Sources */,
 				62BC1B722BA96E5700A233CD /* ConversationController.swift in Sources */,

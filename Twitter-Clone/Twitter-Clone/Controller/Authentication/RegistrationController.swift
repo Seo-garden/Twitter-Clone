@@ -112,8 +112,13 @@ class RegistrationController : UIViewController {
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         //성공했을 때 출력
         AuthService.shared.registerUser(credentials: credentials) { error, ref in
-            print("debug: 회원가입이 성공적으로 완료했습니다.")
-            print("debug: Handle update user interface here")
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {return}
+            
+            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
+                    MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
         }
         
     }

@@ -54,12 +54,16 @@ PODS:
   - leveldb-library (1.22.4)
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
+  - SDWebImage (5.19.1):
+    - SDWebImage/Core (= 5.19.1)
+  - SDWebImage/Core (5.19.1)
 
 DEPENDENCIES:
   - FirebaseAuth
   - FirebaseCore
   - FirebaseDatabase
   - FirebaseStorage
+  - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
@@ -77,6 +81,7 @@ SPEC REPOS:
     - leveldb-library
     - PromisesObjC
     - RecaptchaInterop
+    - SDWebImage
 
 SPEC CHECKSUMS:
   FirebaseAppCheckInterop: a1955ce8c30f38f87e7d091630e871e91154d65d
@@ -93,7 +98,8 @@ SPEC CHECKSUMS:
   leveldb-library: 06a69cc7582d64b29424a63e085e683cc188230a
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
 
-PODFILE CHECKSUM: 7317fc7f1fa4881defe52628d038437384fb391a
+PODFILE CHECKSUM: 5acec9675cf398300315a7fe56f85210db28970a
 
 COCOAPODS: 1.15.2

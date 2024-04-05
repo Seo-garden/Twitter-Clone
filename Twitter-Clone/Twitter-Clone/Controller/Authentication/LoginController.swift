@@ -68,6 +68,10 @@ class LoginController : UIViewController {
     }
     
     //MARK: - Selector
+    @objc func handleLoginSignUp() {
+        let controller = RegistrationController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
     
     @objc func handleLogin() {
         guard let email = emailTextField.text else { return }
@@ -78,14 +82,17 @@ class LoginController : UIViewController {
                 print("debug: 로그인 에러 \(error.localizedDescription)")
                 return
             }
-            print("debug: 로그인 성공")
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {return}
+            
+            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
+                    MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
-    @objc func handleLoginSignUp() {
-        let controller = RegistrationController()
-        navigationController?.pushViewController(controller, animated: true)
-    }
+    
     //MARK: - Helpers
     
     func configureUI() {
