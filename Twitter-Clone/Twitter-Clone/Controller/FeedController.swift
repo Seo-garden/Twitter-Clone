@@ -7,8 +7,13 @@
 
 import Foundation
 import UIKit
+import SDWebImage
+
 class FeedController : UIViewController {
     // MARK: - Properties
+    var user: User? {
+        didSet { configureUILeftBarButton() }
+    }
     
     // MARK: - LifeCycle
     
@@ -25,15 +30,22 @@ class FeedController : UIViewController {
         view.backgroundColor = .white     //설정을 따로 하지 않으면 .black 으로 설정
         
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
+        imageView.setDimensions(width: 44, height: 44)
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView        //상단 이미지 삽입
-        
+    }
+    func configureUILeftBarButton() {
+        guard let user = user else { return }
         let profileImageView = UIImageView()
-        profileImageView.backgroundColor = .twitterBlue
+        
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
+        profileImageView.layer.masksToBounds = true
+        
+        
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
-        
     }
 }

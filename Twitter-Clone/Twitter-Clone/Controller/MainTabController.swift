@@ -12,12 +12,22 @@ import Foundation
 class MainTabController: UITabBarController {
     // MARK: - Properties
     
+    var user : User? {
+        didSet{     //변경될 때 마다 호출
+            guard let nav = viewControllers?.first as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
+    
+    
     let actionButton : UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white       // 버튼의 글자색
         button.backgroundColor = .twitterBlue  // 버튼의 뒷배경 색
         button.setImage(UIImage(named: "new_tweet"), for: .normal)      //for 은 모양인거 같다.
-        button.addTarget(MainTabController.self, action: #selector(actionButtonTapped), for: .touchUpInside)      //self 자기자신을 뜻하고,
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)      //self 자기자신을 뜻하고,
         return button
     }()
     
@@ -28,13 +38,12 @@ class MainTabController: UITabBarController {
         //logUserOut()
         view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
         authenticateUserAndConfigureUI()
-        
     }
     
     //MARK: - API
     func fetchUser(){
         UserService.shared.fetchUser { user in
-            print("debug: Main tab user is \(user.username)")
+            self.user = user
         }
     }
     
@@ -64,7 +73,10 @@ class MainTabController: UITabBarController {
     
     //MARK: - Selectors
     @objc func actionButtonTapped(){        //selector 에 사용되기 때문에 @objc 를 붙여야 한다.
-        print(123)
+        let nav = UINavigationController(rootViewController: UploadTweetController())
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+        
     }
     
     
