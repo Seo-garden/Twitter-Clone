@@ -12,6 +12,7 @@
 		620E02D82BB2DE83007FCDFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 620E02D72BB2DE83007FCDFD /* GoogleService-Info.plist */; };
 		620E8CEF2BBFCE850053166A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E8CEE2BBFCE850053166A /* UserService.swift */; };
 		620E8CF12BBFD9610053166A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E8CF02BBFD9610053166A /* User.swift */; };
+		62715AE12BC3F66500EB9C69 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62715AE02BC3F66500EB9C69 /* CaptionTextView.swift */; };
 		62994AEE2BB5478200B30B3E /* Constrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62994AED2BB5478200B30B3E /* Constrants.swift */; };
 		62AC41042BC1325500635BA5 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AC41032BC1325500635BA5 /* UploadTweetController.swift */; };
 		62B7C1B12BB8072800169AAC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B7C1B02BB8072800169AAC /* AuthService.swift */; };
@@ -36,6 +37,7 @@
 		620E02D72BB2DE83007FCDFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		620E8CEE2BBFCE850053166A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = "Twitter-Clone/UserService.swift"; sourceTree = SOURCE_ROOT; };
 		620E8CF02BBFD9610053166A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = "Twitter-Clone/User.swift"; sourceTree = SOURCE_ROOT; };
+		62715AE02BC3F66500EB9C69 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CaptionTextView.swift; path = "Twitter-Clone/CaptionTextView.swift"; sourceTree = SOURCE_ROOT; };
 		62994AED2BB5478200B30B3E /* Constrants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constrants.swift; sourceTree = "<group>"; };
 		62AC41032BC1325500635BA5 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		62B7C1B02BB8072800169AAC /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = "Twitter-Clone/AuthService.swift"; sourceTree = SOURCE_ROOT; };
@@ -151,6 +153,7 @@
 		62BC1B672BA969F800A233CD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				62715AE02BC3F66500EB9C69 /* CaptionTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			files = (
 				620E8CEF2BBFCE850053166A /* UserService.swift in Sources */,
 				62BC1B702BA96E4A00A233CD /* NotificationsController.swift in Sources */,
+				62715AE12BC3F66500EB9C69 /* CaptionTextView.swift in Sources */,
 				62BC1B502BA9698300A233CD /* AppDelegate.swift in Sources */,
 				62011FDF2BB15D8B00EA9CC9 /* Utilities.swift in Sources */,
 				62BC1B6E2BA96E4200A233CD /* ExploreController.swift in Sources */,
@@ -479,6 +483,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -508,6 +513,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
