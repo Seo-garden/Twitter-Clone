@@ -43,6 +43,9 @@ class UploadTweetController: UIViewController {
         return iv
     }()
     
+    private let captionTextView = CaptionTextView()
+    
+    
     //MARK: - LifeCycle
     init(user: User) {
         self.user = user
@@ -66,7 +69,15 @@ class UploadTweetController: UIViewController {
     }
     
     @objc func handleUploadTweet(){
-        print("debug: 123..")
+        
+        guard let caption = captionTextView.text else { return }
+        TweetService.shared.uploadTweet(caption: caption) { error, ref in
+            if let error = error {
+                print("debug: 트윗하는것을 실패했습니다. \(error.localizedDescription)")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     
@@ -82,8 +93,13 @@ class UploadTweetController: UIViewController {
         view.backgroundColor = .white
         configureNavigationBar()
         
-        view.addSubview(profileImageview)
-        profileImageview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 16, paddingLeft: 16)
+        let stack = UIStackView(arrangedSubviews: [profileImageview, captionTextView])
+        stack.axis = .horizontal
+        stack.spacing = 12
+        
+        
+        view.addSubview(stack)
+        stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16)
         
         profileImageview.sd_setImage(with: user.profileImageUrl, completed: nil)
     }
