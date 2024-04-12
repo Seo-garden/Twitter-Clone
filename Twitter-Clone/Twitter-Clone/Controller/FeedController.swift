@@ -7,19 +7,28 @@
 
 import UIKit
 import SDWebImage
+import FirebaseAuth
 
 private let reuseIdentifier = "TweetCell"
 
 class FeedController : UICollectionViewController {
+    
+    
     // MARK: - Properties
     var user: User? {
         didSet { configureUILeftBarButton() }
     }
     
+    private var tweets = [Tweet](){//클래스 변수로 만들었기 때문에, 트윗 배열에 액세스할 수 있다.
+        didSet { collectionView.reloadData() }
+    }
+    
+    
     //MARK: - API
     func fetchTweets(){
-        TweetService.shared.fetchTweets { tweets in
-            print("debug: Tweets are \(tweets)")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        TweetService.shared.fetchTweets(uid: uid) { tweets in
+            self.tweets = tweets
         }
     }
     
@@ -53,22 +62,28 @@ class FeedController : UICollectionViewController {
         profileImageView.layer.masksToBounds = true
         
         
-        
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
 }
 
+//MARK: - UICollectionViewDelegate/DataSource
+
+
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5        //5개의 셀을 돌려줄 것
+        print("debug: Tweet count at time of collectionView func call is \(tweets.count)")
+        return tweets.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
         return cell
     }
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension FeedController: UICollectionViewDelegateFlowLayout {      //grid 기반의 layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
