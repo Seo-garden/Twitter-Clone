@@ -77,7 +77,6 @@ class TweetCell : UICollectionViewCell{
     override init(frame: CGRect){
         super.init(frame: frame)
         
-        
         addSubview(profileImageview)
         profileImageview.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
         

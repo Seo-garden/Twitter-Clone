@@ -29,10 +29,9 @@ class CaptionTextView: UITextView {
         isScrollEnabled = false
         heightAnchor.constraint(equalToConstant: 300).isActive = true
         
-        
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 4)
-        
+        //이거 잘 모르겠다. 뭔 기능하더라
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextInputChange), name: UITextView.textDidChangeNotification, object: nil)
     }
 
