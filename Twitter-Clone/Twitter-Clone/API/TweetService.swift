@@ -18,9 +18,17 @@ struct TweetService {
                       "timestamp": Int(NSDate().timeIntervalSince1970),
                       "likes": 0,
                       "retweet": 0, "caption": caption ] as [String : Any]
+        
+        let ref = REF_TWEETS.childByAutoId()
         //Constrants 에 있는 변수사용
-        REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+        ref.updateChildValues(values) { error, ref in       //기존의 코드에서 팬아웃을 수행했기 때문에 서버 작업이 훨씬 줄어든다.
+            //update user tweet structure after tweet upload completes
+            guard let tweetID = ref.key else { return }
+            REF_USER_TWEETS.child(uid).updateChildValues([tweetID: 1], withCompletionBlock: completion)
+        }
     }
+    
+    
     
     func fetchTweets(uid: String, completion: @escaping([Tweet]) -> Void) {
         var tweets = [Tweet]()
@@ -34,6 +42,25 @@ struct TweetService {
                 let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
                 tweets.append(tweet)
                 completion(tweets)
+            }
+        }
+    }
+    func fetchTweets(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+        var tweets = [Tweet]()
+        
+        REF_USER_TWEETS.child(user.uid).observe(.childAdded) { snapshot in
+            let tweetID = snapshot.key      //트윗ID 를 가져와서 해당 트윗을 가져와야 된다.
+            
+            REF_TWEETS.child(tweetID).observeSingleEvent(of: .value) { snapshot in
+                guard let dictionary = snapshot.value as? [String: Any] else { return }
+                guard let uid = dictionary["uid"] as? String else { return }
+                
+                UserService.shared.fetchUser(uid: uid) { user in
+                    let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+                    tweets.append(tweet)
+                    completion(tweets)
+                }
+                
             }
         }
     }

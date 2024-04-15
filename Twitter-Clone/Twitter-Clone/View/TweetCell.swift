@@ -10,7 +10,7 @@ import Foundation
 
 //본질적으로 컨트롤러로 작업을 위임할 수 있는 방법이다.
 protocol TweetCellDelegate: class {     //class protocol 로 만들지 않으면 protocol 을 변수로 사용할 수 없다.
-    func handleProfileImageTapped()
+    func handleProfileImageTapped(_ cell: TweetCell)
     
 }
 
@@ -124,7 +124,7 @@ class TweetCell : UICollectionViewCell {
     //MARK: - Selectors
     @objc func handleProfileImageTapped(){
         print("debug: Profile image tapped in cell..")
-        delegate?.handleProfileImageTapped()
+        delegate?.handleProfileImageTapped(self)
     }
     
     

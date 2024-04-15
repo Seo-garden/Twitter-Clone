@@ -19,7 +19,7 @@ class FeedController : UICollectionViewController {
         didSet { configureUILeftBarButton() }
     }
     
-    private var tweets = [Tweet](){//클래스 변수로 만들었기 때문에, 트윗 배열에 액세스할 수 있다.
+    private var tweets = [Tweet](){     //클래스 변수로 만들었기 때문에, 트윗 배열에 액세스할 수 있다.
         didSet { collectionView.reloadData() }
     }
     
@@ -41,6 +41,11 @@ class FeedController : UICollectionViewController {
         fetchTweets()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isHidden = false
+    }
     //MARK: - Helpers
     func configureUI() {
         view.backgroundColor = .white     //설정을 따로 하지 않으면 .black 으로 설정
@@ -101,8 +106,9 @@ extension FeedController: UICollectionViewDelegateFlowLayout {      //grid 기�
 //MARK: - TweetCellDelegate
 
 extension FeedController: TweetCellDelegate {
-    func handleProfileImageTapped() {
-        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+    func handleProfileImageTapped(_ cell: TweetCell) {
+        guard let user = cell.tweet?.user else { return }
+        let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
 }

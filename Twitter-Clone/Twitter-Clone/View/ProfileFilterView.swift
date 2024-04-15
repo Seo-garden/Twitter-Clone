@@ -14,6 +14,7 @@ protocol ProfileFilterViewDelegate: class {
 }
 
 class ProfileFilterView : UIView {
+    
     //MARK: - Properties
     weak var delegate: ProfileFilterViewDelegate?
     
