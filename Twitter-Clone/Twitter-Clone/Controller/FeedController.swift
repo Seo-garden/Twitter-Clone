@@ -9,10 +9,10 @@ import UIKit
 import SDWebImage
 import FirebaseAuth
 
+
 private let reuseIdentifier = "TweetCell"
 
 class FeedController : UICollectionViewController {
-    
     
     // MARK: - Properties
     var user: User? {
@@ -78,8 +78,15 @@ extension FeedController {
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    //해당 프로필 이미지로 이동하려면 컬렉션뷰컨트롤러 자체에 액세스 해야 한다.
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -88,5 +95,14 @@ extension FeedController {
 extension FeedController: UICollectionViewDelegateFlowLayout {      //grid 기반의 layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+}
+
+//MARK: - TweetCellDelegate
+
+extension FeedController: TweetCellDelegate {
+    func handleProfileImageTapped() {
+        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

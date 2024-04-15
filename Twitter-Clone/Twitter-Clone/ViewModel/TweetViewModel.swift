@@ -21,7 +21,7 @@ struct TweetViewModel {
         formatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]      //나타내는 시간의 속성
         formatter.unitsStyle = .abbreviated             //
         let now = Date()
-        return formatter.string(from: tweet.timestamp, to: now)!     
+        return formatter.string(from: tweet.timestamp, to: now)!
     }
     //닉네임을 얻기 위한 과정
     var userInfoText: NSAttributedString {

@@ -6,23 +6,34 @@
 //
 
 import UIKit
+import Foundation
 
-class TweetCell : UICollectionViewCell{
+//본질적으로 컨트롤러로 작업을 위임할 수 있는 방법이다.
+protocol TweetCellDelegate: class {     //class protocol 로 만들지 않으면 protocol 을 변수로 사용할 수 없다.
+    func handleProfileImageTapped()
+    
+}
+
+class TweetCell : UICollectionViewCell {
     //MARK: - Properties
     var tweet: Tweet? {
-        didSet{
-            configure()
-        }
+        didSet{ configure() }
     }
+    //약한 참조로 하지 않으면 feedController 서로 강한 참조를 갖기 때문에 메모리가 불안정하다.
+    weak var delegate: TweetCellDelegate?       //protocol 을 사용하기 위함 델리게이트를 사용하기 위해
     
-    
-    private let profileImageview: UIImageView = {
+    private lazy var profileImageview: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.setDimensions(width: 48, height: 48)
         iv.layer.cornerRadius = 48 / 2
         iv.backgroundColor = .twitterBlue
+        
+        //버튼이 아니라 버튼을 탭하는 이벤트처리를 해야한다.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
+        iv.addGestureRecognizer(tap)
+        iv.isUserInteractionEnabled = true      //상호작용 사실 여부 
         return iv
     }()
     
@@ -111,6 +122,11 @@ class TweetCell : UICollectionViewCell{
     }
     
     //MARK: - Selectors
+    @objc func handleProfileImageTapped(){
+        print("debug: Profile image tapped in cell..")
+        delegate?.handleProfileImageTapped()
+    }
+    
     
     @objc func handleCommentTapped(){
         
@@ -127,6 +143,8 @@ class TweetCell : UICollectionViewCell{
     @objc func handleShareTapped(){
         
     }
+    
+    
     //MARK: - Helpers
     
     func configure(){
