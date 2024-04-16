@@ -10,7 +10,10 @@ import UIKit
 
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
+    func handleEditProfileFollow(_ header: ProfileHeader)
 }
+
+
 
 class ProfileHeader: UICollectionReusableView {
     //MARK: - Properties
@@ -52,7 +55,7 @@ class ProfileHeader: UICollectionReusableView {
     }()
     
     
-    private lazy var editProfileFollowButton : UIButton = {
+    lazy var editProfileFollowButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor.twitterBlue.cgColor
@@ -169,7 +172,7 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleEditProfileFollow(){
-        
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc func handleFollowersTapped(){
@@ -184,6 +187,7 @@ class ProfileHeader: UICollectionReusableView {
     
     func configure(){
         guard let user = user else { return }
+        
         let viewModel = ProfileHeaderViewModel(user: user)
         
         profileImageView.sd_setImage(with: user.profileImageUrl)        //프로필 사진 가져오기

@@ -12,7 +12,7 @@ private let headerIdentifier = "ProfileHeader"
 
 class ProfileController : UICollectionViewController {
     //MARK: - Properties
-    private let user: User
+    private var user: User
     
     private var tweets = [Tweet](){     //클래스 변수로 만들었기 때문에, 트윗 배열에 액세스할 수 있다.
         didSet { collectionView.reloadData() }
@@ -32,6 +32,8 @@ class ProfileController : UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        checkIfUserIsFollowed()
+        fetchUserStats()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +51,21 @@ class ProfileController : UICollectionViewController {
     func fetchTweets(){
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
+        }
+    }
+    
+    func checkIfUserIsFollowed(){
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+            self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchUserStats(){
+        UserService.shared.fetchUserStats(uid: user.uid) { stats in
+            self.user.stats = stats
+            self.collectionView.reloadData()
+            
         }
     }
     
@@ -86,7 +103,6 @@ extension ProfileController {
         return cell
     }
     
-    
 }
 //MARK: - UICollectionViewDelegateFlowLayout
 
@@ -102,8 +118,28 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {      //grid �
     }
 }
 //MARK: - ProfileHeaderDelegate
-extension ProfileController: ProfileHeaderDelegate {           //ProfileHeader 에서 만든 프로토콜을 채택해서
-                                                                //함수를 구현함.
+extension ProfileController: ProfileHeaderDelegate {
+    func handleEditProfileFollow(_ header: ProfileHeader) {        
+        if user.isCurrentUser {
+            print("debug: Show edit profile controller ")
+            return
+        }
+        
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { error, ref in
+                self.user.isFollowed = false
+                self.collectionView.reloadData()
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { ref, error in
+                self.user.isFollowed = true
+                self.collectionView.reloadData()
+            }
+        }
+        
+    }
+    //ProfileHeader 에서 만든 프로토콜을 채택해서
+    //함수를 구현함.
     func handleDismissal() {
         navigationController?.popViewController(animated: true)
     }
