@@ -75,7 +75,7 @@ class TweetCell : UICollectionViewCell {
     
     private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "comment"), for: .normal)
+        button.setImage(UIImage(named: "share"), for: .normal)
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
         button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)

@@ -91,7 +91,8 @@ extension FeedController {
     
     //해당 프로필 이미지로 이동하려면 컬렉션뷰컨트롤러 자체에 액세스 해야 한다.
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let controller = TweetController(tweet: tweets[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
