@@ -10,6 +10,10 @@ import UIKit
 class TweetHeader: UICollectionReusableView {
     //MARK: - Properties
     
+    var tweet: Tweet? {
+        didSet{ configure() }
+    }
+    
     private lazy var profileImageview: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -66,19 +70,9 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
-    private lazy var retweetsLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "2 Retweets"
-        return label
-    }()
+    private lazy var retweetsLabel = UILabel()
     
-    private lazy var likesLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "0 Likes"
-        return label
-    }()
+    private lazy var likesLabel =  UILabel()
     
     
     
@@ -143,7 +137,7 @@ class TweetHeader: UICollectionReusableView {
         labelStack.spacing = -6
         
         let stack = UIStackView(arrangedSubviews: [profileImageview, labelStack])
-        stack.axis = .vertical
+        stack.axis = .horizontal
         stack.spacing = 12
         
         addSubview(stack)
@@ -160,7 +154,7 @@ class TweetHeader: UICollectionReusableView {
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20, height: 40)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12, height: 40)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
         actionStack.spacing = 72
@@ -169,7 +163,7 @@ class TweetHeader: UICollectionReusableView {
         actionStack.centerX(inView: self)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
         
-        //화면이 넘어갔을 때의 수행할 작업은 프로필 컨트롤러에서 작업해야 한다 /
+        //화면이 넘어갔을 때의 수행할 작업은 프로필 컨트롤러에서 작업해야 한다
     }
     
     required init?(coder: NSCoder) {
@@ -203,6 +197,19 @@ class TweetHeader: UICollectionReusableView {
     }
     
     //MARK: - Helpers
+    
+    func configure(){
+        guard let tweet = tweet else { return }
+        let viewModel = TweetViewModel(tweet: tweet)
+        
+        captionLabel.text = tweet.caption
+        fullnameLabel.text = tweet.user.fullname
+        usernameLabel.text = viewModel.usernameText
+        profileImageview.sd_setImage(with: viewModel.profileImageUrl)
+        dateLabel.text = viewModel.headerTimestamp
+        retweetsLabel.attributedText = viewModel.retweetsAttributedString
+        likesLabel.attributedText = viewModel.likesAttributedString
+    }
     
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)

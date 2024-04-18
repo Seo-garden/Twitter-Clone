@@ -4,18 +4,19 @@
 //
 //  Created by 서정원 on 4/6/24.
 //
-
-import Foundation
 import UIKit
+
+enum UploadTweetConfiguration {
+    case tweet
+    case reply(Tweet)
+    
+}
 
 class UploadTweetController: UIViewController {
     //MARK: - Property
-    override var preferredStatusBarStyle: UIStatusBarStyle {        //이거 왜 안되노
-        return .lightContent // 또는 .default
-    }
-
     private let user : User
-
+    private let config: UploadTweetConfiguration
+    
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .twitterBlue
@@ -48,8 +49,9 @@ class UploadTweetController: UIViewController {
     
 
     //MARK: - LifeCycle
-    init(user: User) {
+    init(user: User, config: UploadTweetConfiguration) {
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,6 +99,8 @@ class UploadTweetController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [profileImageview, captionTextView])
         stack.axis = .horizontal
         stack.spacing = 12
+        stack.alignment = .leading      //UploadTweet을 할 때 텍스트길이가 길어서 가려지지 않고 아래로 넘어간다.
+        
         
         view.addSubview(stack)
         stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16)

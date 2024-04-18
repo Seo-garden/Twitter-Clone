@@ -34,7 +34,6 @@ class FeedController : UICollectionViewController {
     
     // MARK: - LifeCycle
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -78,7 +77,6 @@ class FeedController : UICollectionViewController {
 
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("debug: Tweet count at time of collectionView func call is \(tweets.count)")
         return tweets.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -100,7 +98,11 @@ extension FeedController {
 
 extension FeedController: UICollectionViewDelegateFlowLayout {      //grid 기반의 layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        
+        let viewModel = TweetViewModel(tweet: tweets[indexPath.row])
+        let height = viewModel.size(forWidth: view.frame.width).height
+        
+        return CGSize(width: view.frame.width, height: height + 72)
     }
 }
 

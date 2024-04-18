@@ -23,6 +23,26 @@ struct TweetViewModel {
         let now = Date()
         return formatter.string(from: tweet.timestamp, to: now)!
     }
+    
+    var usernameText: String {
+        return "@ \(user.username)"
+    }
+    
+    var headerTimestamp: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm: a ． MM/dd/yyyy"
+        
+        return formatter.string(from: tweet.timestamp)
+    }
+    
+    var retweetsAttributedString: NSAttributedString? {
+        return attributeText(withValue: tweet.retweetCount, text: "Retweets")
+    }
+    
+    var likesAttributedString: NSAttributedString? {
+        return attributeText(withValue: tweet.likes, text: "Likes")
+    }
+    
     //닉네임을 얻기 위한 과정
     var userInfoText: NSAttributedString {
         let title = NSMutableAttributedString(string: user.fullname,
@@ -37,5 +57,26 @@ struct TweetViewModel {
     init(tweet: Tweet){
         self.tweet = tweet
         self.user = tweet.user
+    }
+    
+    //속성을 일부 텍스트 값을 반환해준다. 도우미 함수이기 때문에 비공개로
+    fileprivate func attributeText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributedTitle = NSMutableAttributedString(string: "\(value)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        
+        attributedTitle.append(NSAttributedString(string: " \(text)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        
+        return attributedTitle
+    }
+    
+    func size(forWidth width: CGFloat) -> CGSize {
+        let measurementLabel = UILabel()
+        measurementLabel.text = tweet.caption
+        measurementLabel.numberOfLines = 0
+        measurementLabel.lineBreakMode = .byWordWrapping
+        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
+        measurementLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+        
+        let size = measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return size
     }
 }
