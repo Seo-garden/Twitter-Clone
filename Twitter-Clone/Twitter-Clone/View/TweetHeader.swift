@@ -161,7 +161,7 @@ class TweetHeader: UICollectionReusableView {
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 16)
         
         //화면이 넘어갔을 때의 수행할 작업은 프로필 컨트롤러에서 작업해야 한다
     }
