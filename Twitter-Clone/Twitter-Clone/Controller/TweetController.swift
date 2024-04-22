@@ -14,6 +14,9 @@ class TweetController : UICollectionViewController {        //collectionview 만
     //MARK: - Properties
     
     private let tweet: Tweet
+    
+    private let actionSheetLauncher : ActionSheetLauncher
+        
     private var replies = [Tweet]() {
         didSet{collectionView.reloadData()}
     }
@@ -21,6 +24,7 @@ class TweetController : UICollectionViewController {        //collectionview 만
     //MARK: - LifeCycle
     init(tweet: Tweet){
         self.tweet = tweet
+        self.actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())      //
     }
     
@@ -72,6 +76,8 @@ extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! TweetHeader
         header.tweet = tweet        //프로퍼티 트윗을 접근할 수 있다.
+        header.delegate = self
+        
         return header
     }
 }
@@ -90,4 +96,12 @@ extension TweetController: UICollectionViewDelegateFlowLayout { //헤더, 트윗
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
     }
+}
+
+extension TweetController: TweetHeaderDelegate {
+    func showActionSheet() {
+        actionSheetLauncher.show()
+    }
+    
+    
 }
