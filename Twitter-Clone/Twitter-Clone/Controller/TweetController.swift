@@ -101,7 +101,5 @@ extension TweetController: UICollectionViewDelegateFlowLayout { //헤더, 트윗
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
         actionSheetLauncher.show()
-    }
-    
-    
+    }    
 }

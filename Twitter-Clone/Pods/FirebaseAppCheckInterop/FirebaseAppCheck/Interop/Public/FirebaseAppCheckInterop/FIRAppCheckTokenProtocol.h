@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 
-#import "FIRAppCheckInterop.h"
-#import "FIRAppCheckProtocol.h"
-#import "FIRAppCheckTokenProtocol.h"
-#import "FIRAppCheckTokenResultInterop.h"
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+NS_SWIFT_NAME(AppCheckTokenProtocol)
+@protocol FIRAppCheckTokenProtocol <NSObject>
+
+/// A Firebase App Check token.
+@property(nonatomic, readonly) NSString *token;
+
+/// The App Check token's expiration date in the device's local time.
+@property(nonatomic, readonly) NSDate *expirationDate;
+
+@end
+
+NS_ASSUME_NONNULL_END

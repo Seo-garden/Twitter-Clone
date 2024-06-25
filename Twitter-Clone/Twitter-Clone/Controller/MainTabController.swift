@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import Foundation
 
+
 class MainTabController: UITabBarController {
     // MARK: - Properties
     
@@ -33,9 +34,11 @@ class MainTabController: UITabBarController {
     
     // MARK: - LifeCycle
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //logUserOut()
+//        logUserOut()
         view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
         authenticateUserAndConfigureUI()
     }
@@ -123,6 +126,4 @@ class MainTabController: UITabBarController {
         nav.navigationBar.barTintColor = .white
         return nav
     }
-    
-    
 }
