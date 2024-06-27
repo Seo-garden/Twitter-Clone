@@ -13,7 +13,7 @@ import Foundation
 protocol TweetCellDelegate: class {     //class protocol 로 만들지 않으면 protocol 을 변수로 사용할 수 없다.
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
-    
+    func handleLikeTapped(_ cell: TweetCell)
 }
 
 class TweetCell : UICollectionViewCell {
@@ -139,7 +139,7 @@ class TweetCell : UICollectionViewCell {
     }
     
     @objc func handleLikeTapped(){
-        
+        delegate?.handleLikeTapped(self)
     }
     
     @objc func handleShareTapped(){
@@ -157,5 +157,8 @@ class TweetCell : UICollectionViewCell {
         
         profileImageview.sd_setImage(with: viewModel.profileImageUrl)
         infoLabel.attributedText = viewModel.userInfoText
+        
+        likeButton.tintColor = viewModel.likeButtonTintColor
+        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
     }
 }
