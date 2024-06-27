@@ -33,12 +33,9 @@ class MainTabController: UITabBarController {
     }()
     
     // MARK: - LifeCycle
-    
-    
-    
-    override func viewDidLoad() {
+        override func viewDidLoad() {
         super.viewDidLoad()
-//        logUserOut()
+        //logUserOut()
         view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
         authenticateUserAndConfigureUI()
     }
@@ -78,12 +75,12 @@ class MainTabController: UITabBarController {
     //MARK: - Selectors
     
     @objc func actionButtonTapped(){        //selector 에 사용되기 때문에 @objc 를 붙여야 한다.
+        print("debug: 클릭감지")
         guard let user = user else { return }
         let controller = UploadTweetController(user: user, config: .tweet)
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
-        
     }
     
     

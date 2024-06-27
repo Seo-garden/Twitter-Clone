@@ -13,9 +13,9 @@ private let headerIdentifier = "TweetHeader"
 class TweetController : UICollectionViewController {        //collectionview 만든 이유는 트윗에 대한 답글을 표시할 수 있는 기능이 필요했기 때문이다.
     //MARK: - Properties
     
-    private let tweet: Tweet
+    private var tweet: Tweet
     
-    private let actionSheetLauncher : ActionSheetLauncher
+    private var actionSheetLauncher : ActionSheetLauncher!
         
     private var replies = [Tweet]() {
         didSet{collectionView.reloadData()}
@@ -24,7 +24,7 @@ class TweetController : UICollectionViewController {        //collectionview 만
     //MARK: - LifeCycle
     init(tweet: Tweet){
         self.tweet = tweet
-        self.actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
+        
         super.init(collectionViewLayout: UICollectionViewFlowLayout())      //
     }
     
@@ -45,6 +45,13 @@ class TweetController : UICollectionViewController {        //collectionview 만
         }
     }
     //MARK: - Helpers
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
+    }
+    
     
     func configureCollectionView(){
         collectionView.backgroundColor = .white
@@ -98,8 +105,38 @@ extension TweetController: UICollectionViewDelegateFlowLayout { //헤더, 트윗
     }
 }
 
+//MARK: - TweetHeaderDelegate
+
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        actionSheetLauncher.show()
-    }    
+        if tweet.user.isCurrentUser {
+            showActionSheet(forUser: tweet.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { isFollowed in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+extension TweetController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
+            
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                print("debug: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                print("debug: Did Unfollow user \(user.username)")
+            }
+        case .report:
+            print("debug: Report")
+        case .delete:
+            print("debug: Delete")
+        }
+    }
 }

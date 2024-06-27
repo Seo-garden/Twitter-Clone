@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol TweetHeaderDelegate: class {
     func showActionSheet()

@@ -8,7 +8,7 @@ PODS:
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
   - FirebaseAuthInterop (10.28.0)
-  - FirebaseCore (10.28.0):
+  - FirebaseCore (10.28.1):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
     - GoogleUtilities/Logger (~> 7.12)
@@ -92,7 +92,7 @@ SPEC CHECKSUMS:
   FirebaseAppCheckInterop: 5315f40293191bfec04b2cfab0215760e441540a
   FirebaseAuth: 3d872fbbfc4223edeb72769e488f325fa8b0a4a9
   FirebaseAuthInterop: cec40cbafa1f9a6e0c3334c5c750a0cae7c97f80
-  FirebaseCore: 857dc1c6dd1255675047404d8466f7dfaac5d779
+  FirebaseCore: dfc33f0dffba05f76181da9cc0151171ebb3bd10
   FirebaseCoreExtension: f63147b723e2a700fe0f34ec6fb7f358d6fe83e0
   FirebaseCoreInternal: 58d07f1362fddeb0feb6a857d1d1d1c5e558e698
   FirebaseDatabase: f697c0d1be5477182ecd008292a33299f5668658
@@ -105,6 +105,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
 
-PODFILE CHECKSUM: 89d3d77636845aa883077103e8c34bcf78763dba
+PODFILE CHECKSUM: cedc4335e163c2c85392eb6e1c2b8412d7f2c2b9
 
 COCOAPODS: 1.15.2

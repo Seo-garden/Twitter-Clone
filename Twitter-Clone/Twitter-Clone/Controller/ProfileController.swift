@@ -42,10 +42,6 @@ class ProfileController : UICollectionViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     //MARK: - API
     
     func fetchTweets(){

@@ -7,6 +7,7 @@
 import UIKit
 
 class UploadTweetController: UIViewController {
+    
     //MARK: - Property
     private let user : User
     private let config: UploadTweetConfiguration

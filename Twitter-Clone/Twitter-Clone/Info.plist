@@ -23,5 +23,7 @@
 	</dict>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
 </dict>
 </plist>
