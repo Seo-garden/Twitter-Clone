@@ -21,6 +21,7 @@ class TweetCell : UICollectionViewCell {
     var tweet: Tweet? {
         didSet{ configure() }
     }
+    
     //약한 참조로 하지 않으면 feedController 서로 강한 참조를 갖기 때문에 메모리가 불안정하다.
     weak var delegate: TweetCellDelegate?       //protocol 을 사용하기 위함 델리게이트를 사용하기 위해
     
@@ -125,12 +126,13 @@ class TweetCell : UICollectionViewCell {
     
     //MARK: - Selectors
     @objc func handleProfileImageTapped(){
-        print("debug: Profile image tapped in cell..")
+        print("debug: profileImage Click")
         delegate?.handleProfileImageTapped(self)
     }
     
     
     @objc func handleCommentTapped(){
+        print("debug: 댓글")
         delegate?.handleReplyTapped(self)
     }
     

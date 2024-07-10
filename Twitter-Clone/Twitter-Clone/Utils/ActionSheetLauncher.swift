@@ -60,19 +60,18 @@ class ActionSheetLauncher: NSObject {       //
     
     //MARK: - LifeCycle
     
-    
     init(user: User){
         self.user = user
         super.init()
         
         configureTableView()
-        
     }
      
     //MARK: - Selectors
     
     @objc func handleDismisal() {
         UIView.animate(withDuration: 0.5) {
+            print("debug: ActionSheetLauncher")
             self.blackView.alpha = 0
             self.tableView.frame.origin.y += 300
         }
@@ -138,6 +137,7 @@ extension ActionSheetLauncher: UITableViewDataSource {
 }
 
 //MARK: - UITableViewDelegate
+
 extension ActionSheetLauncher: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footerView
