@@ -77,12 +77,17 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
+    private let replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        
+        return label
+    }()
+    
     private lazy var retweetsLabel = UILabel()
     
     private lazy var likesLabel =  UILabel()
-    
-    
-    
     
     private lazy var statsView: UIView = {
         let view = UIView()
@@ -135,6 +140,7 @@ class TweetHeader: UICollectionReusableView {
     }()
     
     
+    
     //MARK: - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -143,9 +149,13 @@ class TweetHeader: UICollectionReusableView {
         labelStack.axis = .vertical
         labelStack.spacing = -6
         
-        let stack = UIStackView(arrangedSubviews: [profileImageview, labelStack])
-        stack.axis = .horizontal
-        stack.spacing = 12
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageview, labelStack])
+        imageCaptionStack.spacing = 12
+        
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 0
+        stack.distribution = .fillProportionally
         
         addSubview(stack)
         stack.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 16)
@@ -207,6 +217,7 @@ class TweetHeader: UICollectionReusableView {
     
     func configure(){
         guard let tweet = tweet else { return }
+        
         let viewModel = TweetViewModel(tweet: tweet)
         
         captionLabel.text = tweet.caption
@@ -219,6 +230,9 @@ class TweetHeader: UICollectionReusableView {
         
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
         likeButton.tintColor = viewModel.likeButtonTintColor
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
     
     func createButton(withImageName imageName: String) -> UIButton {

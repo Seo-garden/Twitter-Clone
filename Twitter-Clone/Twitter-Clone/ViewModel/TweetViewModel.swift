@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 struct TweetViewModel {
+    
+    //MARK: - Properties
+    
     let tweet: Tweet
     let user: User
     
@@ -54,6 +57,8 @@ struct TweetViewModel {
         return title
     }
     
+    //MARK: - LifeCycle
+    
     init(tweet: Tweet){
         self.tweet = tweet
         self.user = tweet.user
@@ -68,6 +73,15 @@ struct TweetViewModel {
         return UIImage(named: imageName)!
     }
     
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyText: String? {
+        guard let replyingToUsername = tweet.replyingTo else { return nil }
+        return " → replying to @\(replyingToUsername)"
+    }
+    
     //속성을 일부 텍스트 값을 반환해준다. 도우미 함수이기 때문에 비공개로
     fileprivate func attributeText(withValue value: Int, text: String) -> NSAttributedString {
         let attributedTitle = NSMutableAttributedString(string: "\(value)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
@@ -76,6 +90,8 @@ struct TweetViewModel {
         
         return attributedTitle
     }
+    
+    //MARK: - Helper
     
     func size(forWidth width: CGFloat) -> CGSize {
         let measurementLabel = UILabel()

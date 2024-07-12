@@ -8,15 +8,31 @@ import UIKit
 
 private let reuseIdentifier = "TweetCell"
 private let headerIdentifier = "ProfileHeader"
+
 //프로필을 눌렀을 때의 처리
 
 class ProfileController : UICollectionViewController {
     //MARK: - Properties
-    private var user: User
     
-    private var tweets = [Tweet](){     //클래스 변수로 만들었기 때문에, 트윗 배열에 액세스할 수 있다.
-        didSet { collectionView.reloadData() }
+    private var user: User
+
+    private var selectedFilter: ProfileFilterOptions = .tweets {
+        didSet{ collectionView.reloadData() }
     }
+    
+    private var currentDataSource: [Tweet] {
+        switch selectedFilter {
+        case .tweets: return tweets
+        case .replies: return replies
+        case .likes: return likedTweets
+        }
+    }
+    
+    private var tweets = [Tweet]()
+    
+    private var likedTweets = [Tweet]()
+    private var replies = [Tweet]()
+    
     
     //MARK: - LifeCycle
     
@@ -32,13 +48,14 @@ class ProfileController : UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        fetchLikedTweets()
+        fetchReplies()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -47,6 +64,19 @@ class ProfileController : UICollectionViewController {
     func fetchTweets(){
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchLikedTweets() {
+        TweetService.shared.fetchLikes(forUser: user) { tweets in
+            self.likedTweets = tweets
+        }
+    }
+    
+    func fetchReplies() {
+        TweetService.shared.fetchReplies(forUser: user) { tweets in
+            self.replies = tweets
         }
     }
     
@@ -61,7 +91,6 @@ class ProfileController : UICollectionViewController {
         UserService.shared.fetchUserStats(uid: user.uid) { stats in
             self.user.stats = stats
             self.collectionView.reloadData()
-            
         }
     }
     
@@ -72,10 +101,14 @@ class ProfileController : UICollectionViewController {
         collectionView.contentInsetAdjustmentBehavior = .never      //헤더가 statusBar 까지 표시된다.
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        
+        guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
+        collectionView.contentInset.bottom = tabHeight
     }
 }
 
 //MARK: - UICollectionViewDelegate
+
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
@@ -84,18 +117,23 @@ extension ProfileController {
         
         return header
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(tweet: currentDataSource[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 //MARK: - UICollectionViewDataSource
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        return currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
         
-        cell.tweet = tweets[indexPath.row]
+        cell.tweet = currentDataSource[indexPath.row]
         return cell
     }
     
@@ -109,12 +147,23 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {      //grid �
         return CGSize(width: view.frame.width, height: 350)
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        let viewModel = TweetViewModel(tweet: currentDataSource[indexPath.row])
+        var height = viewModel.size(forWidth: view.frame.width).height + 72
+        
+        if currentDataSource[indexPath.row].isReply {
+            height += 20
+        }
+        return CGSize(width: view.frame.width, height: height)
     }
 }
 //MARK: - ProfileHeaderDelegate
 extension ProfileController: ProfileHeaderDelegate {
+    func didSelect(filter: ProfileFilterOptions) {
+        self.selectedFilter = filter
+    }
+    
     func handleEditProfileFollow(_ header: ProfileHeader) {        
         if user.isCurrentUser {
             print("debug: Show edit profile controller ")
