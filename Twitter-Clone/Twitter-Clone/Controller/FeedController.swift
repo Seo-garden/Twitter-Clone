@@ -23,21 +23,33 @@ class FeedController : UICollectionViewController {
         didSet { collectionView.reloadData() }
     }
     
+    //MARK: - Selectors
+    
+    @objc func handleRefresh() {
+        fetchTweets()
+    }
+    
     
     //MARK: - API
     func fetchTweets(){
+        collectionView.refreshControl?.beginRefreshing()
+        
         TweetService.shared.fetchTweets { tweets in
-            self.tweets = tweets
-            self.checkIfUserLikedTweets(tweets)
+            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserLikedTweets(self.tweets)
+            
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
     func checkIfUserLikedTweets(_ tweets: [Tweet]) {
-        for (index, tweet) in tweets.enumerated() {
-            TweetService.shared.checkIfUserTweet(tweet) { didLike in
+        self.tweets.forEach { tweet in
+            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
                 guard didLike == true else { return }
                 
-                self.tweets[index].didLike = true
+                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                    self.tweets[index].didLike = true
+                }
             }
         }
     }
@@ -55,7 +67,9 @@ class FeedController : UICollectionViewController {
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.isHidden = false
     }
+    
     //MARK: - Helpers
+    
     func configureUI() {
         view.backgroundColor = .white     //설정을 따로 하지 않으면 .black 으로 설정
         
@@ -66,7 +80,11 @@ class FeedController : UICollectionViewController {
         imageView.setDimensions(width: 44, height: 44)
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView        //상단 이미지 삽입
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
+    
     func configureUILeftBarButton() {
         guard let user = user else { return }
         let profileImageView = UIImageView()

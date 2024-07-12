@@ -34,7 +34,6 @@ class NotificationsController : UITableViewController {
     
     @objc func handleRefresh(){
         fetchNotifications()
-        
     }
     
     //MARK: - API
