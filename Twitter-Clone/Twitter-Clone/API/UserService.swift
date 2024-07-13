@@ -14,8 +14,8 @@ struct UserService {
     static let shared = UserService()
     
     func fetchUser(uid: String, completion: @escaping(User) -> Void){
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        print("debug: 현재 아이디는 \(uid)")  uid 를 가져오는걸 확인할 수 있다.
+        //        guard let uid = Auth.auth().currentUser?.uid else { return }
+        //        print("debug: 현재 아이디는 \(uid)")  uid 를 가져오는걸 확인할 수 있다.
         REF_USERS.child(uid).observeSingleEvent(of: .value) { snapshot in
             //print("debug: snapshot is \(snapshot)")        //snapshot 이 전부 돌려 받는다
             
@@ -56,7 +56,7 @@ struct UserService {
         
         REF_USER_FOLLOWING.child(currentUid).child(uid).observeSingleEvent(of: .value) { snapshot in
             print("debug: User is followd is \(snapshot.exists())")
-            completion(snapshot.exists())       
+            completion(snapshot.exists())
         }
     }
     
@@ -73,4 +73,30 @@ struct UserService {
         }
     }
     
+    func updateProfileImage(image: UIImage, completion: @escaping (URL?) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let filename = NSUUID().uuidString
+        let ref = STORAGE_PROFILE_IMAGES.child(filename)
+        
+        ref.putData(imageData) { meta, err in
+            ref.downloadURL { url, error in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                let values = ["profileImageUrl": profileImageUrl]
+                
+                REF_USERS.child(uid).updateChildValues(values) { err, ref in
+                    completion(url)
+                }
+            }
+        }
+    }
+    
+    func saveUserData(user: User, completion: @escaping(DatabaseCompletion)) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio ?? ""]
+        
+        REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
+    }
 }
