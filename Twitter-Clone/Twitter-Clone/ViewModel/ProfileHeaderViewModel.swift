@@ -52,6 +52,7 @@ struct ProfileHeaderViewModel {
     init(user: User){
         self.user = user
         self.usernameText = "@" + user.username
+        
     }
     //속성을 일부 텍스트 값을 반환해준다. 도우미 함수이기 때문에 비공개로
     fileprivate func attributeText(withValue value: Int, text: String) -> NSAttributedString {

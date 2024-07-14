@@ -5,6 +5,7 @@
 //  Created by 서정원 on 4/13/24.
 //
 import UIKit
+import FirebaseAuth
 
 private let reuseIdentifier = "TweetCell"
 private let headerIdentifier = "ProfileHeader"
@@ -15,7 +16,7 @@ class ProfileController : UICollectionViewController {
     //MARK: - Properties
     
     private var user: User
-
+    
     private var selectedFilter: ProfileFilterOptions = .tweets {
         didSet{ collectionView.reloadData() }
     }
@@ -144,7 +145,12 @@ extension ProfileController {
 extension ProfileController: UICollectionViewDelegateFlowLayout {      //grid 기반의 layout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350)
+        var height: CGFloat = 315
+        if user.bio != nil {
+            height += 40
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
     
     
@@ -164,7 +170,7 @@ extension ProfileController: ProfileHeaderDelegate {
         self.selectedFilter = filter
     }
     
-    func handleEditProfileFollow(_ header: ProfileHeader) {        
+    func handleEditProfileFollow(_ header: ProfileHeader) {
         if user.isCurrentUser {
             let controller = EditProfileController(user: user)
             controller.delegate = self
@@ -184,7 +190,7 @@ extension ProfileController: ProfileHeaderDelegate {
                 self.user.isFollowed = true
                 self.collectionView.reloadData()
                 
-                NotificationService.shared.uploadNotification(type: .follow, user: self.user)
+                NotificationService.shared.uploadNotification(type: .follow, toUser: self.user)
             }
         }
         
@@ -199,6 +205,17 @@ extension ProfileController: ProfileHeaderDelegate {
 //MARK: - EditProfileControllerDelegate
 
 extension ProfileController: EditProfileControllerDelegate {
+    func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            let nav = UINavigationController(rootViewController: LoginController())
+            nav.modalPresentationStyle = .fullScreen        //기입하기 전에 그냥 내려서 화면을 볼 수 있었는데, 이걸 사용함으로써, 로그인창을 내릴 수 없게 되었다.
+            self.present(nav, animated: true, completion: nil)
+        } catch let error {
+            print("debug: 로그아웃 실패 \(error)")
+        }
+    }
+    
     func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
         controller.dismiss(animated: true, completion: nil)
         self.user = user

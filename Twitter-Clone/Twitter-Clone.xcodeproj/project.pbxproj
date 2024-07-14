@@ -28,6 +28,7 @@
 		629EF2922C3042CE00475DB2 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629EF2912C3042CE00475DB2 /* NotificationViewModel.swift */; };
 		62A8AD912BCA7600001D2F31 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A8AD902BCA7600001D2F31 /* ProfileController.swift */; };
 		62AC41042BC1325500635BA5 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AC41032BC1325500635BA5 /* UploadTweetController.swift */; };
+		62ADE1EA2C43ED7300DF57F2 /* EditProfileFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADE1E92C43ED7300DF57F2 /* EditProfileFooter.swift */; };
 		62BC1B502BA9698300A233CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BC1B4F2BA9698300A233CD /* AppDelegate.swift */; };
 		62BC1B522BA9698300A233CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BC1B512BA9698300A233CD /* SceneDelegate.swift */; };
 		62BC1B572BA9698300A233CD /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 62BC1B562BA9698300A233CD /* Base */; };
@@ -77,6 +78,7 @@
 		629EF2912C3042CE00475DB2 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		62A8AD902BCA7600001D2F31 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		62AC41032BC1325500635BA5 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
+		62ADE1E92C43ED7300DF57F2 /* EditProfileFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooter.swift; sourceTree = "<group>"; };
 		62BC1B4C2BA9698300A233CD /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BC1B4F2BA9698300A233CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62BC1B512BA9698300A233CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				62C076BA2BCD15D600C77AA3 /* ProfileFilterCell.swift */,
 				62987FC52C42615F00EE6465 /* EditProfileHeader.swift */,
 				62987FC92C4265E300EE6465 /* EditProfileCell.swift */,
+				62ADE1E92C43ED7300DF57F2 /* EditProfileFooter.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				62CD67FB2C2D6537003E44CA /* ActionSheetViewModel.swift in Sources */,
 				62987FCA2C4265E300EE6465 /* EditProfileCell.swift in Sources */,
 				62D493012C2EE2AA007C94B5 /* NotificationCell.swift in Sources */,
+				62ADE1EA2C43ED7300DF57F2 /* EditProfileFooter.swift in Sources */,
 				62BC1B6C2BA96DDF00A233CD /* FeedController.swift in Sources */,
 				621F1EE72BC7AD2F00A30495 /* UserService.swift in Sources */,
 				62BE9D9E2BAD91A0006BF900 /* RegistrationController.swift in Sources */,

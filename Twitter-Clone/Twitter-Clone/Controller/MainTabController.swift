@@ -63,14 +63,7 @@ class MainTabController: UITabBarController {
         }
     }
     
-    func logUserOut() {
-        do {
-            try Auth.auth().signOut()
-            print("debug: 로그아웃")
-        } catch let error {
-            print("debug: 로그아웃 실패 \(error)")
-        }
-    }
+    
     
     //MARK: - Selectors
     
