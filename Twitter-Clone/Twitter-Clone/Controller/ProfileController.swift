@@ -63,35 +63,35 @@ class ProfileController : UICollectionViewController {
     //MARK: - API
     
     func fetchTweets(){
-        TweetService.shared.fetchTweets(forUser: user) { tweets in
-            self.tweets = tweets
-            self.collectionView.reloadData()
+        TweetService.shared.fetchTweets(forUser: user) { [weak self] tweets in
+            self?.tweets = tweets
+            self?.collectionView.reloadData()
         }
     }
     
     func fetchLikedTweets() {
-        TweetService.shared.fetchLikes(forUser: user) { tweets in
-            self.likedTweets = tweets
+        TweetService.shared.fetchLikes(forUser: user) { [weak self] tweets in
+            self?.likedTweets = tweets
         }
     }
     
     func fetchReplies() {
-        TweetService.shared.fetchReplies(forUser: user) { tweets in
-            self.replies = tweets
+        TweetService.shared.fetchReplies(forUser: user) { [weak self] tweets in
+            self?.replies = tweets
         }
     }
     
     func checkIfUserIsFollowed(){
-        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
-            self.user.isFollowed = isFollowed
-            self.collectionView.reloadData()
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { [weak self] isFollowed in
+            self?.user.isFollowed = isFollowed
+            self?.collectionView.reloadData()
         }
     }
     
     func fetchUserStats(){
-        UserService.shared.fetchUserStats(uid: user.uid) { stats in
-            self.user.stats = stats
-            self.collectionView.reloadData()
+        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
+            self?.user.stats = stats
+            self?.collectionView.reloadData()
         }
     }
     

@@ -22,7 +22,9 @@ class ProfileHeader: UICollectionReusableView {
     var user: User? {
         didSet{configure()}
     }
+    
     weak var delegate: ProfileHeaderDelegate?
+    
     private let filterBar = ProfileFilterView()
     
     private lazy var containerView: UIView = {

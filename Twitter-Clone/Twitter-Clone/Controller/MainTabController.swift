@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Foundation
+import SwiftUI
 
 
 class MainTabController: UITabBarController {
@@ -116,4 +117,8 @@ class MainTabController: UITabBarController {
         nav.navigationBar.barTintColor = .white
         return nav
     }
+}
+
+#Preview {
+    MainTabController()
 }
