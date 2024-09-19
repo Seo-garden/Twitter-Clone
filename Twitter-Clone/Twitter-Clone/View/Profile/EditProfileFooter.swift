@@ -1,12 +1,7 @@
-//
-//  EditProfileFooter.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 7/14/24.
-//
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol EditProfileFooterDelegate: class {
     func handleLogout()

@@ -1,9 +1,3 @@
-//
-//  UploadTweetController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/6/24.
-//
 import UIKit
 import ActiveLabel
 

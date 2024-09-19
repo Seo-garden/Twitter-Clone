@@ -1,19 +1,9 @@
-//
-//  MainTabController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/19/24.
-//
-
-import UIKit
-import FirebaseAuth
 import Foundation
-import SwiftUI
-
+import FirebaseAuth
+import UIKit
 
 class MainTabController: UITabBarController {
     // MARK: - Properties
-    
     var user : User? {
         didSet{     //변경될 때 마다 호출
             guard let nav = viewControllers?.first as? UINavigationController else { return }
@@ -28,7 +18,7 @@ class MainTabController: UITabBarController {
         let button = UIButton(type: .system)
         button.tintColor = .white       // 버튼의 글자색
         button.backgroundColor = .twitterBlue  // 버튼의 뒷배경 색
-        button.setImage(UIImage(named: "new_tweet"), for: .normal)      //for 은 모양인거 같다.
+        button.setImage(UIImage(named: "new_tweet"), for: .normal)      
         button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)      //self 자기자신을 뜻하고,
         return button
     }()
@@ -36,7 +26,7 @@ class MainTabController: UITabBarController {
     // MARK: - LifeCycle
         override func viewDidLoad() {
         super.viewDidLoad()
-        //logUserOut()
+        logUserOut()
         view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
         authenticateUserAndConfigureUI()
     }
@@ -44,18 +34,18 @@ class MainTabController: UITabBarController {
     //MARK: - API
     func fetchUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.shared.fetchUser(uid: uid) { user in
+        UserService.shared.fetchUser(uid: uid) {  user in
             self.user = user
         }
     }
     
     
-    func authenticateUserAndConfigureUI(){
-        if Auth.auth().currentUser == nil {     //로그인이 되지 않은 경우.
-            DispatchQueue.main.async {      //로드시에는 메인 쓰레드에서 수행되어야 한다. 이렇게 하지 않으면 작동하지 않는다.
+    func authenticateUserAndConfigureUI() {
+        if Auth.auth().currentUser == nil {    //로그인이 되지 않은 경우.
+            DispatchQueue.main.async { [weak self] in     //로드시에는 메인 쓰레드에서 수행되어야 한다. 이렇게 하지 않으면 작동하지 않는다.
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen        //기입하기 전에 그냥 내려서 화면을 볼 수 있었는데, 이걸 사용함으로써, 로그인창을 내릴 수 없게 되었다.
-                self.present(nav, animated: true, completion: nil)
+                self?.present(nav, animated: true, completion: nil)
             }
         } else {
             configureViewController()
@@ -67,7 +57,6 @@ class MainTabController: UITabBarController {
     
     
     //MARK: - Selectors
-    
     @objc func actionButtonTapped(){        //selector 에 사용되기 때문에 @objc 를 붙여야 한다.
         print("debug: 클릭감지")
         guard let user = user else { return }
@@ -117,8 +106,9 @@ class MainTabController: UITabBarController {
         nav.navigationBar.barTintColor = .white
         return nav
     }
-}
-
-#Preview {
-    MainTabController()
+    
+    //MARK: - 로그아웃함수
+    func logUserOut() {
+        try! Auth.auth().signOut()
+    }
 }

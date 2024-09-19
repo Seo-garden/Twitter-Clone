@@ -1,10 +1,3 @@
-//
-//  LoginController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/22/24.
-//
-
 import Foundation
 import UIKit
 import FirebaseAuth
@@ -73,6 +66,25 @@ class LoginController : UIViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+//    @objc func handleLogin() {
+//        guard let email = emailTextField.text else { return }
+//        guard let password = passwordTextField.text else { return }
+//        
+//        AuthService.shared.logUserIn(withEmail: email, password: password) { [weak self] result, error in
+//            if let error = error {
+//                print("debug: 로그인 에러 \(error.localizedDescription)")
+//                return
+//            }
+//            guard UIApplication.shared.windows.first(where: { $0.isKeyWindow }) != nil else {return}
+//            
+//            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
+//                    MainTabController else { return }
+//            
+//            tab.authenticateUserAndConfigureUI()
+//            self?.dismiss(animated: true, completion: nil)
+//        }
+//    }
+    
     @objc func handleLogin() {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
@@ -82,17 +94,16 @@ class LoginController : UIViewController {
                 print("debug: 로그인 에러 \(error.localizedDescription)")
                 return
             }
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {return}
             
-            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
-                    MainTabController else { return }
+            guard UIApplication.shared.windows.first(where: { $0.isKeyWindow }) != nil else { return }
+
+            guard let tab = UIApplication.shared.keyWindow?.rootViewController as? MainTabController else { return }
             
             tab.authenticateUserAndConfigureUI()
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    
+
     //MARK: - Helpers
     
     func configureUI() {

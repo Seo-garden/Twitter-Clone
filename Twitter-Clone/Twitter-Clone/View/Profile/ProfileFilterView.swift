@@ -1,9 +1,3 @@
-//
-//  ProfileFilter.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/15/24.
-//
 
 import UIKit
 
@@ -14,11 +8,10 @@ protocol ProfileFilterViewDelegate: class {
 }
 
 class ProfileFilterView : UIView {
-    
     //MARK: - Properties
     weak var delegate: ProfileFilterViewDelegate?
     
-    lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = { 
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .white

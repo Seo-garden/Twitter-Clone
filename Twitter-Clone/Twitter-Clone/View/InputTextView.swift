@@ -1,9 +1,3 @@
-//
-//  CaptionTextView.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/8/24.
-//
 
 import Foundation
 import UIKit
@@ -31,7 +25,7 @@ class InputTextView: UITextView {
         
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 4)
-        //이거 잘 모르겠다. 뭔 기능하더라
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextInputChange), name: UITextView.textDidChangeNotification, object: nil)
     }
 

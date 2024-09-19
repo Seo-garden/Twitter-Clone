@@ -1,9 +1,4 @@
-//
-//  ExploreController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/19/24.
-//
+
 
 import UIKit
 
@@ -44,8 +39,8 @@ class ExploreController : UITableViewController {
     //MARK: - API
     
     func fetchUsers(){
-        UserService.shared.fetchUsers { users in
-            self.users = users
+        UserService.shared.fetchUsers { [weak self] users in
+            self?.users = users
         }
     }
     

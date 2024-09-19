@@ -1,9 +1,4 @@
-//
-//  UserCell.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/16/24.
-//
+
 
 import UIKit
 

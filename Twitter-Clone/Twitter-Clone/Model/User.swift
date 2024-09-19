@@ -1,9 +1,4 @@
-//
-//  User.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/5/24.
-//
+
 
 import FirebaseAuth
 

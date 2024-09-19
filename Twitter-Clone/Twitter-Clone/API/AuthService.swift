@@ -1,10 +1,3 @@
-//
-//  AuthService.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/30/24.
-//
-
 import Foundation
 import UIKit
 
@@ -46,7 +39,7 @@ struct AuthService {
         storageRef.putData(imageData, metadata:nil) { meta, error in        //프로필사진 데이터 삽입
             storageRef.downloadURL { url, error in
                 guard let profileImageUrl = url?.absoluteString else { return }
-                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                Auth.auth().createUser(withEmail: email, password: password) { result, error in
                     if let error = error {
                         print("debug : 에러 \(error.localizedDescription)")
                         return      //return 을 넣지 않으면 항목이 실행되고 앱이 중단될 수 있다.

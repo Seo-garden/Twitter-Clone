@@ -1,10 +1,3 @@
-//
-//  TweetService.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/10/24.
-//
-
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth

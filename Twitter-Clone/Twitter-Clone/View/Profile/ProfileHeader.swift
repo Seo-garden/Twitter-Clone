@@ -1,9 +1,3 @@
-//
-//  ProfileHeader.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 4/13/24.
-//
 
 import Foundation
 import UIKit
@@ -87,7 +81,7 @@ class ProfileHeader: UICollectionReusableView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 3
-        label.text = "This is ~"
+        
         return label
     }()
     

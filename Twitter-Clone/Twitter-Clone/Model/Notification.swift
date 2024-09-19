@@ -1,10 +1,3 @@
-//
-//  Notification.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 6/28/24.
-//
-
 import Foundation
 
 enum NotificationType: Int {

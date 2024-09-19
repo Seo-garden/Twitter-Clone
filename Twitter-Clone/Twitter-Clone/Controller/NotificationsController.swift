@@ -1,9 +1,3 @@
-//
-//  NotificationController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/19/24.
-//
 
 import Foundation
 import UIKit
@@ -42,10 +36,10 @@ class NotificationsController : UITableViewController {
     func fetchNotifications(){
         refreshControl?.endRefreshing()
         
-        NotificationService.shared.fetchNotifications { [weak self] notifications in
-            self?.refreshControl?.endRefreshing()
-            self?.notifications = notifications
-            self?.checkIfUserIsFollow(notification: notifications)
+        NotificationService.shared.fetchNotifications { notifications in
+            self.refreshControl?.endRefreshing()
+            self.notifications = notifications
+            self.checkIfUserIsFollow(notification: notifications)
         }
     }
     

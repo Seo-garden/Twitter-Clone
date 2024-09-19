@@ -1,10 +1,3 @@
-//
-//  ActionSheetCell.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 6/27/24.
-//
-
 import Foundation
 import UIKit
 

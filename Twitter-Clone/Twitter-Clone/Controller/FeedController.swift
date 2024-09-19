@@ -1,10 +1,3 @@
-//
-//  FeedController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 3/19/24.
-//
-
 import UIKit
 import SDWebImage
 import FirebaseAuth
@@ -41,21 +34,21 @@ class FeedController : UICollectionViewController {
     func fetchTweets(){
         collectionView.refreshControl?.beginRefreshing()
         
-        TweetService.shared.fetchTweets { tweets in
-            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
-            self.checkIfUserLikedTweets(self.tweets)
+        TweetService.shared.fetchTweets { [weak self] tweets in
+            self?.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self?.checkIfUserLikedTweets(self!.tweets)
             
-            self.collectionView.refreshControl?.endRefreshing()
+            self?.collectionView.refreshControl?.endRefreshing()
         }
     }
     
     func checkIfUserLikedTweets(_ tweets: [Tweet]) {
         self.tweets.forEach { tweet in
-            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+            TweetService.shared.checkIfUserLikedTweet(tweet) { [weak self] didLike in
                 guard didLike == true else { return }
                 
-                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
-                    self.tweets[index].didLike = true
+                if let index = self?.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                    self?.tweets[index].didLike = true
                 }
             }
         }

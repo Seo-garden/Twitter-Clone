@@ -1,10 +1,3 @@
-//
-//  EdiltProfileViewModel.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 7/13/24.
-//
-
 import Foundation
 import UIKit
 

@@ -1,10 +1,3 @@
-//
-//  EditProfileController.swift
-//  Twitter-Clone
-//
-//  Created by 서정원 on 7/13/24.
-//
-
 import Foundation
 import UIKit
 import FirebaseDatabase
@@ -201,7 +194,7 @@ extension EditProfileController: EditProfileCellDelegate {
 
 extension EditProfileController: EditProfileFooterDelegate {
     func handleLogout() {
-        let alert = UIAlertController(title: nil, message: "로그아웃 하시렵니까?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "로그아웃 하실껍니까?", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "로그아웃", style: .destructive, handler: { _ in
             self.dismiss(animated: true)
