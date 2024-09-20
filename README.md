@@ -53,7 +53,7 @@
 
 | 로그인화면 | 회원가입 | 좋아요 알림 |  팔로잉, 좋아요, 게시글 | 
 | :--------: | :--------: | :------: | :------: |  
-| ![로그인화면](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B4.gif) | ![회원가입](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/회원가입.gif) | ![좋아요 알림](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/알림기능.gif) | ![팔로잉, 좋아요, 게시글](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/팔로잉기능,좋아요,게시글작성.gif) |
+| ![로그인화면](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B4.gif) | ![회원가입](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/회원가입.gif) | ![팔로잉, 좋아요, 게시글](https://github.com/Seo-garden/Twitter-Clone/blob/main/image/팔로잉기능,좋아요,게시글작성.gif) |
 
 ### 🌟 완성하기까지의 과정 😅
 <br/>
