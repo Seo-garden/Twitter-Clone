@@ -4,7 +4,6 @@ import FirebaseDatabase
 import FirebaseStorage
 
 
-
 struct AuthCredentials {
     let email : String
     let password : String
