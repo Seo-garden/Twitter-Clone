@@ -1,6 +1,6 @@
+import FirebaseAuth
 import Foundation
 import UIKit
-import FirebaseAuth
 
 class LoginController : UIViewController {
     //MARK: - Properties

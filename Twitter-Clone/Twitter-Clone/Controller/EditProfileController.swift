@@ -1,6 +1,7 @@
+import FirebaseDatabase
 import Foundation
 import UIKit
-import FirebaseDatabase
+
 
 private let reuseIdentifier = "EditProfileCell"
 

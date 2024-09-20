@@ -1,6 +1,6 @@
+import ActiveLabel
 import UIKit
 import SDWebImage
-import ActiveLabel
 
 protocol TweetHeaderDelegate: class {
     func showActionSheet()

@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 private let reuseIdentifier = "UserCell"

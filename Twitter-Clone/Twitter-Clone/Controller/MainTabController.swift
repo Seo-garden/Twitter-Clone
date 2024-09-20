@@ -1,5 +1,5 @@
-import Foundation
 import FirebaseAuth
+import Foundation
 import UIKit
 
 class MainTabController: UITabBarController {

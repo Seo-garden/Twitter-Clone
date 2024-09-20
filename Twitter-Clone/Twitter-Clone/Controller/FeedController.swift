@@ -1,7 +1,6 @@
-import UIKit
-import SDWebImage
 import FirebaseAuth
-
+import SDWebImage
+import UIKit
 
 private let reuseIdentifier = "TweetCell"
 

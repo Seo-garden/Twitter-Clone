@@ -1,7 +1,7 @@
-# Twitter-Clone
+### 트위터 클론 코딩
 
-Xcode 업데이트 후 xcworkspace 파일 열리지 않는 이슈 해결 -> xcworkspace 지우고 pod install 다시 하면 된다.
+[Udemy 트위터 클론 코딩](https://www.udemy.com/course/twitter-ios-clone-swift/?couponCode=OF83024D) 을 참고하여 만들었습니다.
 
-오랜만에 클론코딩 앱을 실행해보니까 로그인 및 회원가입이 안되는 케이스가 생겼음,
-첫번쨰로, Storage 에서 규칙을 
-allow read, write: if request.time < timestamp.date(2024, 4, 27); 에서 allow read, write: if true; 로 수정하고 ".read": true, ".write": true 로 수정했음
+![게시글 작성](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/게시글작성.PNG)  ![로그인 화면](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/로그인화면.PNG)  ![메인 탭](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/메인탭.PNG)  ![알림](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/알림.PNG)  ![유저검색](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/유저검색.PNG)  ![프로필(본인게시)](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/프로필1.PNG)  ![프로필LIKE](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/프로필LIKE.PNG)  ![프로필REPLY](https://github.com/Seo-garden/Twitter-Clone/tree/main/Twitter-Clone/image/프로필reply.PNG)
+
+

@@ -1,10 +1,8 @@
-import Foundation
-import UIKit
-
-import FirebaseCore
-import FirebaseStorage
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseCore
+import FirebaseDatabase
+import FirebaseStorage
+
 
 
 struct AuthCredentials {

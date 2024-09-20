@@ -1,4 +1,3 @@
-
 import UIKit
 
 private let reuseIdentifier = "ProfileFilterCell"

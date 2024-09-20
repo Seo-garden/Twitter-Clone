@@ -1,8 +1,8 @@
+import FirebaseAuth
+import FirebaseCore
+import FirebaseDatabase
 import Foundation
 import UIKit
-import FirebaseCore
-import FirebaseAuth
-import FirebaseDatabase
 
 class RegistrationController : UIViewController {
     //MARK: - Properties

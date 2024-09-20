@@ -1,5 +1,5 @@
-import UIKit
 import FirebaseAuth
+import UIKit
 
 private let reuseIdentifier = "TweetCell"
 private let headerIdentifier = "ProfileHeader"
