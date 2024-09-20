@@ -8,9 +8,9 @@
 
 <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/메인탭.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/게시글작성.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/알림.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/유저검색.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/프로필1.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/프로필reply.PNG" alt="" width="110" height="200">  <img src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/프로필LIKE.PNG" alt="" width="110" height="200">
 
-### - 🛠️ 처음 써본 기술
+### 🛠️ 처음 써본 기술
 <br/>  
-    - Firebase 를 활용한 서버 통신 및 인증 (로그인, 회원 등록)  
+    Firebase 를 활용한 서버 통신 및 인증 (로그인, 회원 등록)  
 
 
 ### 🐚 주요 기능
