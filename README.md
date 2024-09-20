@@ -15,6 +15,7 @@
 
 ### 🐚 주요 기능
 <hr>
+
     1. 메인탭
     - 사용자가 팔로우 한 트윗을 가져와서 보여줌
     - refreshControl 을 사용해 업데이트
@@ -52,14 +53,5 @@
 
 | 로그인화면 | 회원가입 | 좋아요 알림 |  팔로잉, 좋아요, 게시글 | 
 | :--------: | :--------: | :------: | :------: |  
-| <video width="320" height="240" controls>
-  <source src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/로그인화면.MP4" type="video/mp4">
-</video> | <video width="320" height="240" controls>
-  <source src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/회원가입화면.MP4" type="video/mp4">
-</video> | <video width="320" height="240" controls>
-  <source src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/팔로잉기능, 좋아요, 게시글작성.MP4" type="video/mp4">
-</video> | <video width="320" height="240" controls>
-  <source src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/좋아요알림.MP4" type="video/mp4">
-</video> | 
-
+| <img width="225" src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/로그인화면.gif> | <img width="225" src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/회원가입.gif> | <img width="225" src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/좋아요알림.gif> | <img width="225" src="https://github.com/Seo-garden/Twitter-Clone/blob/main/image/팔로잉기능, 좋아요, 게시글작성.gif> |  
 
