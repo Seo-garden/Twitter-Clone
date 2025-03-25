@@ -1,3 +1,4 @@
+import SwiftUI
 import ActiveLabel
 import UIKit
 import SDWebImage
@@ -88,7 +89,6 @@ class TweetHeader: UICollectionReusableView {
     
     private lazy var statsView: UIView = {
         let view = UIView()
-        
         
         let divider1 = UIView()
         divider1.backgroundColor = .systemGroupedBackground
@@ -248,4 +248,8 @@ class TweetHeader: UICollectionReusableView {
         }
     }
     
+}
+
+#Preview {
+    TweetHeader()
 }

@@ -5,7 +5,6 @@ import UIKit
 private let reuseIdentifier = "TweetCell"
 
 class FeedController : UICollectionViewController {
-    
     // MARK: - Properties
     var user: User? {
         didSet { configureUILeftBarButton() }

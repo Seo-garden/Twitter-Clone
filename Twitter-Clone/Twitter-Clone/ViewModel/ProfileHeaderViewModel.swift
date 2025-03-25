@@ -1,6 +1,5 @@
 import UIKit
 
-
 enum ProfileFilterOptions: Int, CaseIterable {
     case tweets
     case replies

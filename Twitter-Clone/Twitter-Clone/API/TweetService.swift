@@ -60,7 +60,7 @@ struct TweetService {
             }
         }
     }
-    
+
     
     func fetchTweets(forUser user: User, completion: @escaping([Tweet]) -> Void) {
         var tweets = [Tweet]()

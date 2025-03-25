@@ -1,6 +1,7 @@
 import UIKit
 import Foundation
 import ActiveLabel
+import SwiftUI
 
 //본질적으로 컨트롤러로 작업을 위임할 수 있는 방법이다.
 protocol TweetCellDelegate: class {     //class protocol 로 만들지 않으면 protocol 을 변수로 사용할 수 없다.
@@ -171,7 +172,7 @@ class TweetCell : UICollectionViewCell {
         replyLabel.text = viewModel.replyText
     }
     
-    func createButton(withImageName imageName: String) -> UIButton {
+    private func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: imageName), for: .normal)
         button.tintColor = .darkGray
@@ -180,9 +181,13 @@ class TweetCell : UICollectionViewCell {
         return button
     }
     
-    func configureMentionHandler() {
+    private func configureMentionHandler() {
         captionLabel.handleMentionTap { [weak self] username in
             self?.delegate?.handleFetchUser(withUsername: username)
         }
     }
+}
+
+#Preview {
+    TweetCell()
 }

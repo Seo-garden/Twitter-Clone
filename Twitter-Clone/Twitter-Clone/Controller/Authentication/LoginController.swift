@@ -4,7 +4,6 @@ import UIKit
 
 class LoginController : UIViewController {
     //MARK: - Properties
-    
     private let logoImageView : UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit        //콘텐츠의 비율을 지켜 View 의 크기에 맞게 확장하는 옵션
@@ -66,6 +65,10 @@ class LoginController : UIViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 //    @objc func handleLogin() {
 //        guard let email = emailTextField.text else { return }
 //        guard let password = passwordTextField.text else { return }
@@ -89,19 +92,33 @@ class LoginController : UIViewController {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("debug: 로그인 에러 \(error.localizedDescription)")
-                return
+        Task {
+            do {
+                _ = try await AuthService.shared.logUserIn(withEmail: email, password: password)
+                
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }),
+                   let tab = keyWindow.rootViewController as? MainTabController {
+                    tab.authenticateUserAndConfigureUI()
+                    self.dismiss(animated: true)
+                }
+            } catch {
+                print(error.localizedDescription)
             }
-            
-            guard UIApplication.shared.windows.first(where: { $0.isKeyWindow }) != nil else { return }
-
-            guard let tab = UIApplication.shared.keyWindow?.rootViewController as? MainTabController else { return }
-            
-            tab.authenticateUserAndConfigureUI()
-            self.dismiss(animated: true, completion: nil)
         }
+        
+        //        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
+        //            if let error = error {
+        //                print("debug: 로그인 에러 \(error.localizedDescription)")
+        //                return
+        //            }
+        //
+        //            guard UIApplication.shared.windows.first(where: { $0.isKeyWindow }) != nil else { return }
+        //
+        //            guard let tab = UIApplication.shared.keyWindow?.rootViewController as? MainTabController else { return }
+        //
+        //            tab.authenticateUserAndConfigureUI()
+        //            self.dismiss(animated: true, completion: nil)
+        //        }
     }
 
     //MARK: - Helpers

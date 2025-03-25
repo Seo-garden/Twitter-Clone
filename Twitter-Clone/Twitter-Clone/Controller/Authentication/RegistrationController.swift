@@ -105,14 +105,26 @@ class RegistrationController : UIViewController {
         
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         //성공했을 때 출력
-        AuthService.shared.registerUser(credentials: credentials) { error, ref in
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {return}
-            
-            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
-                    MainTabController else { return }
-            
-            tab.authenticateUserAndConfigureUI()
-            self.dismiss(animated: true, completion: nil)
+        //        AuthService.shared.registerUser(credentials: credentials) { error, ref in
+        //            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {return}
+        //
+        //            guard let tab = UIApplication.shared.keyWindow?.rootViewController as?
+        //                    MainTabController else { return }
+        //
+        //            tab.authenticateUserAndConfigureUI()
+        //            self.dismiss(animated: true, completion: nil)
+        //        }
+        Task {
+            do {
+                _ = try await AuthService.shared.registerUser(credentials: credentials)
+                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) ,let tab = UIApplication.shared.keyWindow?.rootViewController as?
+                    MainTabController {
+                    tab.authenticateUserAndConfigureUI()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
     }
@@ -167,4 +179,8 @@ extension RegistrationController : UIImagePickerControllerDelegate, UINavigation
         self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true, completion: nil)
     }
+}
+
+#Preview {
+    RegistrationController()
 }

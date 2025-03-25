@@ -13,7 +13,7 @@ class ProfileHeader: UICollectionReusableView {
     //MARK: - Properties
     
     var user: User? {
-        didSet{configure()}
+        didSet{ configure() }
     }
     
     weak var delegate: ProfileHeaderDelegate?

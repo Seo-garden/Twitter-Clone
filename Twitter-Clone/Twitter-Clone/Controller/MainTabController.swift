@@ -1,11 +1,12 @@
 import FirebaseAuth
 import Foundation
 import UIKit
+import SwiftUI
 
 class MainTabController: UITabBarController {
     // MARK: - Properties
     var user : User? {
-        didSet{     //변경될 때 마다 호출
+        didSet {     //변경될 때 마다 호출
             guard let nav = viewControllers?.first as? UINavigationController else { return }
             guard let feed = nav.viewControllers.first as? FeedController else { return }
             
@@ -26,7 +27,7 @@ class MainTabController: UITabBarController {
     // MARK: - LifeCycle
         override func viewDidLoad() {
         super.viewDidLoad()
-        logUserOut()
+//        logUserOut()
         view.backgroundColor = .twitterBlue     //이걸 넣으면 기존의 검은 화면이 파란색으로 바뀜으로써 좀더 깔끔하다.
         authenticateUserAndConfigureUI()
     }
@@ -38,7 +39,6 @@ class MainTabController: UITabBarController {
             self.user = user
         }
     }
-    
     
     func authenticateUserAndConfigureUI() {
         if Auth.auth().currentUser == nil {    //로그인이 되지 않은 경우.
@@ -112,3 +112,6 @@ class MainTabController: UITabBarController {
         try! Auth.auth().signOut()
     }
 }
+
+//MARK: - Preview()
+

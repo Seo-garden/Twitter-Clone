@@ -16,8 +16,6 @@ struct Tweet {
     init(user: User, tweetID: String, dictionary: [String: Any]) {
         self.tweetID = tweetID
         
-        
-        
         self.caption = dictionary["caption"] as? String ?? ""
         self.uid = dictionary["uid"] as? String ?? ""
         self.likes = dictionary["caption"] as? Int ?? 0

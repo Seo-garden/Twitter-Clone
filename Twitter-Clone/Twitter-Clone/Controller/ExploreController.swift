@@ -13,7 +13,7 @@ class ExploreController : UITableViewController {
         didSet { tableView.reloadData() }
     }
     
-    private var inSearchMode: Bool {
+    private var inSearchMode: Bool {        //댓글 취소창
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
     
