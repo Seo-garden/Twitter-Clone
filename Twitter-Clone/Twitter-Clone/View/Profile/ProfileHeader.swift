@@ -11,7 +11,6 @@ protocol ProfileHeaderDelegate: class {
 
 class ProfileHeader: UICollectionReusableView {
     //MARK: - Properties
-    
     var user: User? {
         didSet{ configure() }
     }
