@@ -10,7 +10,7 @@ struct User {
     var stats: UserRelationStats?
     var bio: String?
     
-    var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid}
+    var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid }
     
     init(uid: String,dictionary: [String:AnyObject]){
         self.uid = uid
